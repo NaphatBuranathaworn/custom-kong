@@ -1,0 +1,40 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "status": "success",
+          "messsage": "success"
+        }
+      }
+    },
+    {
+      "priority": 10,
+      "request": {
+        "method": "ANY",
+        "urlPattern": ".*"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "code": "0",
+          "message": "Success",
+          "data": {
+            "cid": "0123456789124",
+            "mobileNo": "0851234567",
+            "email": "aaa@bb.com",
+            "customerID": "52010112"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}
