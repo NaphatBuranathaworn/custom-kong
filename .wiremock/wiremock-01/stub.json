@@ -13,26 +13,27 @@
         }
       }
     },
+    
     {
-      "priority": 10,
       "request": {
-        "method": "ANY",
-        "urlPattern": ".*"
+        "method": "POST",
+        "url": "/api/v1/info"
       },
       "response": {
         "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
         "jsonBody": {
           "code": "0",
           "message": "Success",
           "data": {
+            "type": "customer",
             "cid": "0123456789124",
             "mobileNo": "0851234567",
             "email": "aaa@bb.com",
             "customerID": "52010112"
           }
-        },
-        "headers": {
-          "Content-Type": "application/json"
         }
       }
     }

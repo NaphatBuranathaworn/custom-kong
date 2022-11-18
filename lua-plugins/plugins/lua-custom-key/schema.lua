@@ -8,6 +8,7 @@ return {
         type = 'record',
         fields = {
           { key_header = { type = 'string',required = true} },
+          { separator = { type = 'string'} },
         },
       },
     },

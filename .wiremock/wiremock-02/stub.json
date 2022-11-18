@@ -1,0 +1,40 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "status": "success",
+          "messsage": "success"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/info"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "code": "0",
+          "message": "Success",
+          "data": {
+            "type": "merchant",
+            "cid": "0123456789124",
+            "mobileNo": "0851234567",
+            "email": "aaa@bb.com",
+            "customerID": "52010112"
+          }
+        }
+      }
+    }
+  ]
+}

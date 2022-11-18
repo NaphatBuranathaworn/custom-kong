@@ -16,9 +16,19 @@ function CustomKeyHandler:access(conf)
   kong.log.info("conf : ", conf.key_header)
 
  local conf_header = conf.key_header
+ local conf_seperator = conf.separator
   local x_api_key = kong.request.get_header('x-api-key')
 
- kong.response.set_header("Custom-Key", x_api_key .. '.' .. conf_header)
+  if conf_seperator == nil or conf_seperator == '' then
+    kong.response.set_header("content-type", "application/json")
+    local err_resp = { 
+      code = "8888",
+      message = "separator is empty" 
+    }
+    kong.response.exit(500, err_resp)
+  end
+  kong.service.request.set_header("Custom-Key", x_api_key .. conf_seperator .. conf_header)
+  kong.response.set_header("Custom-Key", x_api_key .. conf_seperator .. conf_header)
 
 end
 
