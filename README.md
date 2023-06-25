@@ -16,44 +16,11 @@
                -e "POSTGRES_PASSWORD=kong" \
                postgres:9.6
 
-     docker run -d --name kong-database-02 \
-               --network=kong-net \
-               -p 5433:5432 \
-               -e "POSTGRES_USER=kong" \
-               -e "POSTGRES_DB=kong" \
-               -e "POSTGRES_PASSWORD=kong" \
-               postgres:9.6
-     docker run -d --name kong-database-03 \
-               --network=kong-net \
-               -p 5434:5432 \
-               -e "POSTGRES_USER=kong" \
-               -e "POSTGRES_DB=kong" \
-               -e "POSTGRES_PASSWORD=kong" \
-               postgres:9.6
-
 
 3. docker run --rm \
      --network=kong-net \
      -e "KONG_DATABASE=postgres" \
      -e "KONG_PG_HOST=kong-database" \
-     -e "KONG_PG_USER=kong" \
-     -e "KONG_PG_PASSWORD=kong" \
-     -e "KONG_CASSANDRA_CONTACT_POINTS=kong-database" \
-     kong:latest kong migrations bootstrap
-
-     docker run --rm \
-     --network=kong-net \
-     -e "KONG_DATABASE=postgres" \
-     -e "KONG_PG_HOST=kong-database-02" \
-     -e "KONG_PG_USER=kong" \
-     -e "KONG_PG_PASSWORD=kong" \
-     -e "KONG_CASSANDRA_CONTACT_POINTS=kong-database" \
-     kong:latest kong migrations bootstrap
-
-     docker run --rm \
-     --network=kong-net \
-     -e "KONG_DATABASE=postgres" \
-     -e "KONG_PG_HOST=kong-database-03" \
      -e "KONG_PG_USER=kong" \
      -e "KONG_PG_PASSWORD=kong" \
      -e "KONG_CASSANDRA_CONTACT_POINTS=kong-database" \
@@ -75,42 +42,6 @@
      -p 8445:8443 \
      -p 127.0.0.1:8002:8001 \
      -p 127.0.0.1:8446:8444 \
-     kong:latest
-
-     docker run -d --name kong-02 \
-     --network=kong-net \
-     -e "KONG_DATABASE=postgres" \
-     -e "KONG_PG_HOST=kong-database-02" \
-     -e "KONG_PG_USER=kong" \
-     -e "KONG_PG_PASSWORD=kong" \
-     -e "KONG_CASSANDRA_CONTACT_POINTS=kong-database" \
-     -e "KONG_PROXY_ACCESS_LOG=/dev/stdout" \
-     -e "KONG_ADMIN_ACCESS_LOG=/dev/stdout" \
-     -e "KONG_PROXY_ERROR_LOG=/dev/stderr" \
-     -e "KONG_ADMIN_ERROR_LOG=/dev/stderr" \
-     -e "KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl" \
-     -p 9002:8000 \
-     -p 8447:8443 \
-     -p 127.0.0.1:8003:8001 \
-     -p 127.0.0.1:8457:8444 \
-     kong:latest
-
-     docker run -d --name kong-03 \
-     --network=kong-net \
-     -e "KONG_DATABASE=postgres" \
-     -e "KONG_PG_HOST=kong-database-03" \
-     -e "KONG_PG_USER=kong" \
-     -e "KONG_PG_PASSWORD=kong" \
-     -e "KONG_CASSANDRA_CONTACT_POINTS=kong-database" \
-     -e "KONG_PROXY_ACCESS_LOG=/dev/stdout" \
-     -e "KONG_ADMIN_ACCESS_LOG=/dev/stdout" \
-     -e "KONG_PROXY_ERROR_LOG=/dev/stderr" \
-     -e "KONG_ADMIN_ERROR_LOG=/dev/stderr" \
-     -e "KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl" \
-     -p 9003:8000 \
-     -p 8448:8443 \
-     -p 127.0.0.1:8004:8001 \
-     -p 127.0.0.1:8458:8444 \
      kong:latest
 
 4.1 
@@ -197,4 +128,21 @@ docker rm konga
     ```
     ENV KONG_PLUGINS=bundled,lua-decrypt,lua-white-list,lua-create-scope,lua-encrypt,lua-validate-scope,lua-registration-grant,lua-decrypt-token,lua-encrypt-token,lua-revoke-token
     ```
+    
+4. Rebuild and test on local machine and Test
+
+    ```
+    docker compose build && docker compose down && docker compose up -d && docker logs gateway_kong -f
+    ```
+5. Lua Plugin development reference
+
+    https://docs.konghq.com/gateway-oss/2.5.x/plugin-development/
+
+    https://docs.konghq.com/gateway-oss/2.5.x/plugin-development/custom-logic/
+
+    https://docs.konghq.com/gateway-oss/2.5.x/plugin-development/plugin-configuration/
+
+    https://docs.konghq.com/gateway-oss/2.5.x/pdk/kong.request/
+
+    https://docs.konghq.com/gateway-oss/2.5.x/pdk/kong.service.response/
 
