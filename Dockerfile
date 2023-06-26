@@ -7,7 +7,7 @@ ENV TZ=Asia/Bangkok
 # ENV KONG_NGINX_MAIN_ENV=""
 
 ### Register custom plugin
-ENV KONG_PLUGINS=bundled
+ENV KONG_PLUGINS=bundled,lua-custom-key
 
 ### Log level
 ENV KONG_LOG_LEVEL=info

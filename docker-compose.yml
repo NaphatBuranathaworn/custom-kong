@@ -57,7 +57,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    user: nobody #"${KONG_USER:-kong}"
+    user: nobody
     networks:
       - kong-net
     volumes:

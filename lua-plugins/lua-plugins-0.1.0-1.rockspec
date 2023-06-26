@@ -26,6 +26,7 @@ dependencies = {
 build = {
   type = 'builtin',
   modules = {
-   
+    ['kong.plugins.lua-custom-key.handler'] = 'plugins/lua-custom-key/handler.lua',
+    ['kong.plugins.lua-custom-key.schema'] = 'plugins/lua-custom-key/schema.lua',
   }
 }
