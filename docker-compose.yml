@@ -12,7 +12,7 @@ services:
     container_name: gateway_wiremock
     image: wiremock/wiremock:2.32.0-1-alpine
     volumes:
-      - ./wiremock:/home/wiremock/mappings
+      - .wiremock/wiremock-01:/home/wiremock/mappings
     ports:
       - 9090:8080
 
